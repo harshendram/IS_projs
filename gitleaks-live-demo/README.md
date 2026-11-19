@@ -18,6 +18,24 @@ Open a **new** terminal after installing so `gitleaks` is on PATH.
 
 ## Quick start
 
+### Double-click (easiest)
+
+Open the folder in File Explorer and double-click one of these:
+
+| File | What it does |
+|---|---|
+| `CHECK-SETUP.cmd` | Confirms gitleaks and git work |
+| `START-CORE-DEMOS.cmd` | Opens tabs 1-4 (the 6-minute live demo) |
+| `START-DEMO.cmd` | Opens all 8 demo tabs |
+| `MAKE-BACKUP.cmd` | Records every demo's output into `backup\` |
+| `RESET.cmd` | Deletes all demo workspaces |
+
+> Do **not** double-click the `.ps1` files: by default Windows opens them in Notepad instead of running them.
+
+### From a PowerShell terminal
+
+Use PowerShell, not Command Prompt.
+
 ```powershell
 cd gitleaks-live-demo
 .\00-check-setup.ps1                 # confirm tools work
@@ -56,6 +74,7 @@ Tabs 1-4 make a 6-minute core demo. Use tabs 5-8 to answer questions.
 
 ## Troubleshooting
 
+- **A `.ps1` file opens in Notepad**: that happens when you double-click it or type its name in Command Prompt. Double-click the matching `.cmd` file instead, or run it from a PowerShell window as `.\open-terminals.ps1`.
 - **"running scripts is disabled on this system"**: run `powershell -ExecutionPolicy Bypass -File .\open-terminals.ps1`, or once: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 - **"gitleaks is not installed"** right after installing: open a new terminal.
 - **"Could not delete ..."**: another tab is still inside that demo's folder; close it and rerun.

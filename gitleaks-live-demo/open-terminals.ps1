@@ -4,12 +4,15 @@
 #   .\open-terminals.ps1                  # all demos 1-8
 #   .\open-terminals.ps1 -Demos 1,2,3,4   # only the core demos
 param(
-    [int[]]$Demos = @(1, 2, 3, 4, 5, 6, 7, 8)
+    [string[]]$Demos = @('1', '2', '3', '4', '5', '6', '7', '8'),
+    [switch]$DryRun          # print the launch command instead of opening anything
 )
 
+# Accept "1,2,3,4" as one string too (that is how .cmd files pass it).
+$wanted  = @($Demos -split '[,\s]+' | Where-Object { $_ } | ForEach-Object { [int]$_ })
 $here    = $PSScriptRoot
 $scripts = @(Get-ChildItem $here -Filter '*.ps1' |
-    Where-Object { $_.Name -match '^(\d\d)-' -and ([int]$Matches[1] -in $Demos) } |
+    Where-Object { $_.Name -match '^(\d\d)-' -and ([int]$Matches[1] -in $wanted) } |
     Sort-Object Name)
 
 if ($scripts.Count -eq 0) { Write-Host 'No matching demo scripts found.' -ForegroundColor Red; exit 1 }
@@ -19,7 +22,9 @@ if (Get-Command wt.exe -ErrorAction SilentlyContinue) {
         $title = 'Demo ' + ($s.BaseName -replace '-', ' ')
         'new-tab --title "{0}" --suppressApplicationTitle -d "{1}" powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -File "{2}"' -f $title, $here, $s.FullName
     }
-    Start-Process wt.exe -ArgumentList ('-w new ' + ($tabs -join ' ; '))
+    $argLine = '-w new ' + ($tabs -join ' ; ')
+    if ($DryRun) { Write-Host "wt.exe $argLine"; exit 0 }
+    Start-Process wt.exe -ArgumentList $argLine
     Write-Host "Opened $($scripts.Count) tabs in a new Windows Terminal window." -ForegroundColor Green
     Write-Host 'Switch tabs with Ctrl+Tab or Ctrl+Alt+1..9. Zoom with Ctrl+Plus for the projector.' -ForegroundColor Gray
 }

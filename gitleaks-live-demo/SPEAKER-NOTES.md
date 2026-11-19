@@ -2,9 +2,9 @@
 
 **Before the class (5 minutes)**
 1. Plug in the projector, set Windows Terminal font large (`Ctrl` + `+`).
-2. `.\00-check-setup.ps1`: both versions print.
-3. `.\make-backup.ps1`: fresh backup in `backup\` (copy it to your phone or a USB drive too).
-4. `.\open-terminals.ps1`: 8 tabs open and wait on their title screens.
+2. Double-click `CHECK-SETUP.cmd`: both versions print.
+3. Double-click `MAKE-BACKUP.cmd`: fresh backup in `backup\` (copy it to your phone or a USB drive too).
+4. Double-click `START-DEMO.cmd` (all 8 tabs) or `START-CORE-DEMOS.cmd` (tabs 1-4): tabs open and wait on their title screens.
 
 **10-minute plan**
 
